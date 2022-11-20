@@ -121,7 +121,7 @@ class MyAppFull extends StatefulWidget {
   }
 }
 
-class MyAppState extends State<MyAppFull> {
+class MyAppState extends State<MyAppFull> with WidgetsBindingObserver {
   String email = '';
   final emailEdit = TextEditingController();
 
@@ -137,12 +137,29 @@ class MyAppState extends State<MyAppFull> {
   void dispose() {
     //after the screen close
     super.dispose();
+    emailEdit.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     print("run dispose");
+  }
+
+  //command: didChangeAppLifecycleState
+  //xac dinh thiet bi dang o trang chu hay o giao dien
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("Hello buggy");
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      print("Background mode");
+    } else if (state == AppLifecycleState.resumed) {
+      print("Foreground mode");
+    }
   }
 
   //command : build
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    DateTime createDate = DateTime(2022, 11, 20);
     print("Run build");
     //after initstate ,run build
     return MaterialApp(
@@ -199,12 +216,45 @@ class MyAppState extends State<MyAppFull> {
                     fontWeight: FontWeight.w300),
               ),
               Text(
-                widget.text3,
+                "$now",
                 style: const TextStyle(
                     fontSize: 30,
                     color: Colors.black,
                     fontWeight: FontWeight.w300),
-              )
+              ),
+              Text(
+                createDate.toString(),
+                style: const TextStyle(
+                    fontSize: 30,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w300),
+              ),
+              Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  child: TextField(
+                    controller: emailEdit,
+                    onChanged: (value) {
+                      setState(() {
+                        email = value;
+                      });
+                    },
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        labelText: "Nhập username ..."),
+                  )),
+              Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  child: const TextField(
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        labelText: "Nhập password..."),
+                  )),
             ],
           )),
         ));
@@ -212,4 +262,41 @@ class MyAppState extends State<MyAppFull> {
 }
 /*SeyState StatelessWidget StatefulWidget*/
 
-class ClassName {}
+/*  Submit demo */
+class DataDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Hello World",
+      home: Scaffold(
+          body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                child: const TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      labelText: "Nhập user..."),
+                )),
+            //username
+            Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                child: const TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      labelText: "Nhập password..."),
+                )),
+            //Password
+            // submit
+          ],
+        ),
+      )),
+    );
+  }
+}
+/*  Submit demo */
