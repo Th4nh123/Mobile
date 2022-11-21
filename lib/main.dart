@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, unused_local_variable
 import 'package:flutter/material.dart';
 import 'class.dart';
+import 'transaction.dart';
 
 // Dart programming language
 String mainpage = "Trang chủ\n";
@@ -92,6 +93,7 @@ class MyAppLess extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
+// inteface
 class MyAppFull extends StatefulWidget {
   String introdute = "Giới thiệu";
   String text1 = "Học viện CNTT SPEC";
@@ -102,7 +104,8 @@ class MyAppFull extends StatefulWidget {
   //command : createState
   @override
   State<StatefulWidget> createState() {
-    return MyAppState();
+    // return MyAppState();
+    return MyAppStateNumber2();
   }
 
   //command : build
@@ -121,6 +124,8 @@ class MyAppFull extends StatefulWidget {
   }
 }
 
+// MyAppStateNumber2
+/* State1 */
 class MyAppState extends State<MyAppFull> with WidgetsBindingObserver {
   String email = '';
   final emailEdit = TextEditingController();
@@ -260,43 +265,106 @@ class MyAppState extends State<MyAppFull> with WidgetsBindingObserver {
         ));
   }
 }
-/*SeyState StatelessWidget StatefulWidget*/
+
+/* State1 */
 
 /*  Submit demo */
-class DataDemo extends StatelessWidget {
+
+/* State2 */
+class MyAppStateNumber2 extends State<MyAppFull> with WidgetsBindingObserver {
+  final GlobalKey<ScaffoldState> interface = GlobalKey<ScaffoldState>();
+  String user = '';
+  String pass = '';
+  final username = TextEditingController();
+  final password = TextEditingController();
+  Transaction transaction = Transaction(title1: "", title2: "");
+  final List<Transaction> transactions = <Transaction>[
+    Transaction(title1: "Ronaldo", title2: "Ronaldo")
+  ];
+  // List<Transaction>
   @override
   Widget build(BuildContext context) {
+    print("121212345678934567894567R890");
+    print(transactions[0].title1);
     return MaterialApp(
-      title: "Hello World",
+      title: "auth",
       home: Scaffold(
+          key: interface,
           body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                child: const TextField(
-                  decoration: InputDecoration(
+            minimum: const EdgeInsets.only(left: 20, right: 20),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  child: const Text("Demo Form Data",
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+                TextField(
+                  controller: username,
+                  onChanged: (value) {
+                    setState(() {
+                      user = value;
+                      transaction.title1 = value;
+                      print(transaction.title1);
+                      print(transactions[0].title1);
+                    });
+                  },
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20))),
-                      labelText: "Nhập user..."),
-                )),
-            //username
-            Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                child: const TextField(
-                  decoration: InputDecoration(
+                      labelText: "Nhập Title1 ..."),
+                ),
+                TextField(
+                  controller: password,
+                  onChanged: (value) {
+                    setState(() {
+                      pass = value;
+                      transaction.title2 = value;
+                      print(transaction.title2);
+                      print(transactions[0].title2);
+                    });
+                  },
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20))),
-                      labelText: "Nhập password..."),
-                )),
-            //Password
-            // submit
-          ],
-        ),
-      )),
+                      labelText: "Nhập Sub Title1 ..."),
+                ),
+                TextButton(
+                    child: const Text('Submit'),
+                    onPressed: () {
+                      // print("$user $pass");
+                      transactions.add(transaction);
+                      transaction = Transaction(title1: "", title2: "");
+                      username.text = "";
+                      password.text = "";
+                    }),
+                Column(
+                  children: transactions.map((eachtran) {
+                    print("Transaction");
+                    return ListTile(
+                        leading: const Icon(Icons.access_alarm),
+                        title: Text(eachtran.title1),
+                        subtitle: Text(eachtran.title2),
+                        onTap: () {
+                          print(transactions);
+                          print("You just have "
+                              "${eachtran.title1}"
+                              "${eachtran.title2}");
+                        });
+                  }).toList(),
+                )
+              ],
+            ),
+          )),
     );
   }
 }
+
+/* State2 */
+
 /*  Submit demo */
+/*SetState StatelessWidget StatefulWidget*/
