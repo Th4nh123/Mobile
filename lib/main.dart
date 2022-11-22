@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'class.dart';
 import 'transaction.dart';
+import 'package:untitled/widgelist.dart';
 
 // Dart programming language
 String mainpage = "Trang chủ\n";
@@ -92,8 +93,8 @@ class MyAppLess extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
 // inteface
+// ignore: must_be_immutable
 class MyAppFull extends StatefulWidget {
   String introdute = "Giới thiệu";
   String text1 = "Học viện CNTT SPEC";
@@ -113,6 +114,9 @@ class MyAppFull extends StatefulWidget {
     return MaterialApp(
         title: "XdSoft",
         home: Scaffold(
+          appBar: AppBar(title: const Text("Demo"), actions: <Widget>[
+            IconButton(onPressed: (() {}), icon: const Icon(Icons.add))
+          ]),
           body: Center(
               child: Text(
             header,
@@ -271,6 +275,7 @@ class MyAppState extends State<MyAppFull> with WidgetsBindingObserver {
 /*  Submit demo */
 
 /* State2 */
+/* We are going to make a scroll*/
 class MyAppStateNumber2 extends State<MyAppFull> with WidgetsBindingObserver {
   final GlobalKey<ScaffoldState> interface = GlobalKey<ScaffoldState>();
   String user = '';
@@ -282,93 +287,69 @@ class MyAppStateNumber2 extends State<MyAppFull> with WidgetsBindingObserver {
   // List<Transaction>
   @override
   Widget build(BuildContext context) {
-    List<Widget> cardshow() {
-      String index = "";
-      return transactions.map((eachtran) {
-        print("Transaction");
-        index = eachtran.title1;
-        return Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color: index == "green" ? Colors.green : Colors.blue,
-          child: ListTile(
-              leading: const Icon(Icons.access_alarm),
-              title: Text(
-                eachtran.title1,
-                style: const TextStyle(color: Colors.white, fontSize: 15),
-              ),
-              subtitle: Text(
-                eachtran.title2,
-                style: const TextStyle(color: Colors.white, fontSize: 15),
-              ),
-              onTap: () {
-                print(transactions);
-                print("You just have "
-                    "${eachtran.title1}"
-                    "${eachtran.title2}");
-              }),
-        );
-      }).toList();
-    }
-
     return MaterialApp(
       title: "auth",
       home: Scaffold(
           key: interface,
           body: SafeArea(
-            minimum: const EdgeInsets.only(left: 20, right: 20),
-            child: Column(
-              children: <Widget>[
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  child: const Text("Demo Form Data",
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                      )),
+              minimum: const EdgeInsets.only(left: 20, right: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 10),
+                      child: const Text("Demo Form Data",
+                          style: TextStyle(
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
+                    TextField(
+                      controller: username,
+                      onChanged: (value) {
+                        setState(() {
+                          user = value;
+                          transaction.title1 = value;
+                          print(transaction.title1);
+                        });
+                      },
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          labelText: "Nhập Title1 ..."),
+                    ),
+                    TextField(
+                      controller: password,
+                      onChanged: (value) {
+                        setState(() {
+                          pass = value;
+                          transaction.title2 = value;
+                          print(transaction.title2);
+                        });
+                      },
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          labelText: "Nhập Sub Title1 ..."),
+                    ),
+                    TextButton(
+                        child: const Text('Submit'),
+                        onPressed: () {
+                          // print("$user $pass");
+                          transactions.add(transaction);
+                          transaction = Transaction(title1: "", title2: "");
+                          username.text = "";
+                          password.text = "";
+                        }),
+                    // Column(children: cardshow())
+                    ListviewDemo(listcard: transactions)
+                  ],
                 ),
-                TextField(
-                  controller: username,
-                  onChanged: (value) {
-                    setState(() {
-                      user = value;
-                      transaction.title1 = value;
-                      print(transaction.title1);
-                    });
-                  },
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      labelText: "Nhập Title1 ..."),
-                ),
-                TextField(
-                  controller: password,
-                  onChanged: (value) {
-                    setState(() {
-                      pass = value;
-                      transaction.title2 = value;
-                      print(transaction.title2);
-                    });
-                  },
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      labelText: "Nhập Sub Title1 ..."),
-                ),
-                TextButton(
-                    child: const Text('Submit'),
-                    onPressed: () {
-                      // print("$user $pass");
-                      transactions.add(transaction);
-                      transaction = Transaction(title1: "", title2: "");
-                      username.text = "";
-                      password.text = "";
-                    }),
-                Column(children: cardshow())
-              ],
-            ),
-          )),
+              ))),
     );
   }
 }
