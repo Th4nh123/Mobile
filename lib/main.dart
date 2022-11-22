@@ -278,14 +278,39 @@ class MyAppStateNumber2 extends State<MyAppFull> with WidgetsBindingObserver {
   final username = TextEditingController();
   final password = TextEditingController();
   Transaction transaction = Transaction(title1: "", title2: "");
-  final List<Transaction> transactions = <Transaction>[
-    Transaction(title1: "Ronaldo", title2: "Ronaldo")
-  ];
+  final List<Transaction> transactions = <Transaction>[];
   // List<Transaction>
   @override
   Widget build(BuildContext context) {
-    print("121212345678934567894567R890");
-    print(transactions[0].title1);
+    List<Widget> cardshow() {
+      String index = "";
+      return transactions.map((eachtran) {
+        print("Transaction");
+        index = eachtran.title1;
+        return Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          color: index == "green" ? Colors.green : Colors.blue,
+          child: ListTile(
+              leading: const Icon(Icons.access_alarm),
+              title: Text(
+                eachtran.title1,
+                style: const TextStyle(color: Colors.white, fontSize: 15),
+              ),
+              subtitle: Text(
+                eachtran.title2,
+                style: const TextStyle(color: Colors.white, fontSize: 15),
+              ),
+              onTap: () {
+                print(transactions);
+                print("You just have "
+                    "${eachtran.title1}"
+                    "${eachtran.title2}");
+              }),
+        );
+      }).toList();
+    }
+
     return MaterialApp(
       title: "auth",
       home: Scaffold(
@@ -310,7 +335,6 @@ class MyAppStateNumber2 extends State<MyAppFull> with WidgetsBindingObserver {
                       user = value;
                       transaction.title1 = value;
                       print(transaction.title1);
-                      print(transactions[0].title1);
                     });
                   },
                   decoration: const InputDecoration(
@@ -325,7 +349,6 @@ class MyAppStateNumber2 extends State<MyAppFull> with WidgetsBindingObserver {
                       pass = value;
                       transaction.title2 = value;
                       print(transaction.title2);
-                      print(transactions[0].title2);
                     });
                   },
                   decoration: const InputDecoration(
@@ -342,21 +365,7 @@ class MyAppStateNumber2 extends State<MyAppFull> with WidgetsBindingObserver {
                       username.text = "";
                       password.text = "";
                     }),
-                Column(
-                  children: transactions.map((eachtran) {
-                    print("Transaction");
-                    return ListTile(
-                        leading: const Icon(Icons.access_alarm),
-                        title: Text(eachtran.title1),
-                        subtitle: Text(eachtran.title2),
-                        onTap: () {
-                          print(transactions);
-                          print("You just have "
-                              "${eachtran.title1}"
-                              "${eachtran.title2}");
-                        });
-                  }).toList(),
-                )
+                Column(children: cardshow())
               ],
             ),
           )),
