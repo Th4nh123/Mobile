@@ -6,6 +6,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   title: const Text("Container example"),
+      // ),
       body: Stack(
         children: [
           Container(
@@ -36,7 +39,7 @@ class App extends StatelessWidget {
                                   child: Text("Now UI",
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontWeight: FontWeight.w600)))),
+                                          fontWeight: FontWeight.w400)))),
                           SizedBox(
                               width: MediaQuery.of(context).size.width / 3,
                               child: const FittedBox(
@@ -44,7 +47,7 @@ class App extends StatelessWidget {
                                 child: Text("Flutter",
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w600)),
+                                        fontWeight: FontWeight.w400)),
                               ))
                         ],
                       )),
@@ -83,29 +86,25 @@ class App extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Padding(
+                  Container(
                     padding: const EdgeInsets.only(top: 16.0),
                     child: SizedBox(
                       width: double.infinity,
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          foregroundColor: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0),
+                      child: ElevatedButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
                           ),
-                          disabledForegroundColor: Colors.red.withOpacity(1),
-                          minimumSize: const Size(88, 36),
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        ),
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/home');
-                        },
-                        child: const Padding(
-                            padding: EdgeInsets.only(
-                                left: 16.0, right: 16.0, top: 16, bottom: 16),
-                            child: Text("GET STARTED",
-                                style: TextStyle(fontSize: 12.0))),
-                      ),
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, '/home');
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.only(top: 16, bottom: 16),
+                            child: const Text("GET STARTED",
+                                style: TextStyle(fontSize: 12.0)),
+                          )),
                     ),
                   )
                 ],
