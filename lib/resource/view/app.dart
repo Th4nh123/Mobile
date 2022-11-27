@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:untitled/resource/data/color.dart';
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -38,7 +40,7 @@ class App extends StatelessWidget {
                                   fit: BoxFit.contain,
                                   child: Text("Now UI",
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: NowUIColors.white,
                                           fontWeight: FontWeight.w400)))),
                           SizedBox(
                               width: MediaQuery.of(context).size.width / 3,
@@ -46,7 +48,7 @@ class App extends StatelessWidget {
                                 fit: BoxFit.contain,
                                 child: Text("Flutter",
                                     style: TextStyle(
-                                        color: Colors.white,
+                                        color: NowUIColors.white,
                                         fontWeight: FontWeight.w400)),
                               ))
                         ],
@@ -61,7 +63,7 @@ class App extends StatelessWidget {
                         children: [
                           const Text("Designed By",
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: NowUIColors.white,
                                   fontWeight: FontWeight.w600,
                                   letterSpacing: 0.3)),
                           const SizedBox(width: 5.0),
@@ -76,7 +78,7 @@ class App extends StatelessWidget {
                         children: [
                           const Text("Coded By",
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: NowUIColors.white,
                                   fontWeight: FontWeight.w600,
                                   letterSpacing: 0.3)),
                           const SizedBox(width: 10.0),
@@ -92,7 +94,7 @@ class App extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                           style: TextButton.styleFrom(
-                            foregroundColor: Colors.white,
+                            foregroundColor: NowUIColors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4.0),
                             ),
