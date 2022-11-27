@@ -14,14 +14,17 @@ class App extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   // border: Border.all(
                   //     color: Colors.purple,
                   //     width: 10.0,
                   //     style: BorderStyle.solid),
-                  image: const DecorationImage(
+                  image: DecorationImage(
                       image: AssetImage("assets/imgs/onboarding-free.png"),
-                      fit: BoxFit.fill))),
+                      fit: BoxFit.cover
+                      /* cover : img adjusted by px , fill : img adjusted by percent */
+                      ))),
+          /* fill */
           SafeArea(
             child: Container(
                 // decoration: BoxDecoration(
@@ -37,7 +40,7 @@ class App extends StatelessWidget {
                   // decoration: BoxDecoration(
                   //     border: Border.all(
                   //         color: Colors.red,
-                  //         width: 2.0,
+                  //         width: 5.0,
                   //         style: BorderStyle.solid)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -45,8 +48,8 @@ class App extends StatelessWidget {
                       Container(
                         // decoration: BoxDecoration(
                         //     border: Border.all(
-                        //         color: Colors.red,
-                        //         width: 2.0,
+                        //         color: Colors.orange,
+                        //         width: 5.0,
                         //         style: BorderStyle.solid)),
                         child: Column(
                           children: [
@@ -97,8 +100,8 @@ class App extends StatelessWidget {
                       Container(
                         // decoration: BoxDecoration(
                         //     border: Border.all(
-                        //         color: Colors.red,
-                        //         width: 2.0,
+                        //         color: Colors.black,
+                        //         width: 5.0,
                         //         style: BorderStyle.solid)),
                         child: Column(
                           children: [
@@ -110,7 +113,7 @@ class App extends StatelessWidget {
                               //         style: BorderStyle.solid)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                                // crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const Text("Designed By",
                                       style: TextStyle(
@@ -152,7 +155,7 @@ class App extends StatelessWidget {
                           // decoration: BoxDecoration(
                           //     border: Border.all(
                           //         color: NowUIColors.buttonColor,
-                          //         width: 4.0,
+                          //         width: 5.0,
                           //         style: BorderStyle.solid)),
                           padding: const EdgeInsets.only(top: 16.0),
                           child: Container(
@@ -161,7 +164,7 @@ class App extends StatelessWidget {
                             //         color: Colors.red,
                             //         width: 2.0,
                             //         style: BorderStyle.solid)),
-                            width: double.infinity,
+                            width: MediaQuery.of(context).size.width,
                             child: ElevatedButton(
                               style: TextButton.styleFrom(
                                 foregroundColor: NowUIColors.white,
